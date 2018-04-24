@@ -1,0 +1,90 @@
+<% content_for  :left_column do %>
+<div class="">
+  <a href="<%= logout_path %>" data-method="delete">Logout</a>
+  <a href="/users/<%= session[:user_id] %>/edit">Edit My info</a>
+  <a href="/products">All Products</a>
+</div>
+<h1>Hello <%= @user.name %> Welcome To You online Thrift Shop</h1>
+<div>
+  <p>Sell Product</p>
+<form action="#" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <div class="form-group">
+    <label>Item: </label>
+    <input class="form-control" id="exampleFormControlInput1" type="text" name="item" placeholder="item">
+  </div>
+  <div class="form-group">
+    <label>Amount: </label>
+    <input class="form-control" id="exampleFormControlInput1" type="number" name="amount" placeholder="0.00">
+  </div>
+  <button class="btn btn-primary" type="submit" name="submit">Sell</button>
+</form>
+</div>
+<div>
+  <p>Your products that are not yet sold:</p>
+  <table class="table">
+    <thead class="table-primary">
+      <th scope="col">Product</th>
+      <th scope="col">Date posted</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Action</th>
+    </thead>
+    <tbody>
+      <% @not_sold.each do |product| %>
+      <tr scope="row">
+        <td><%= product.item %></td>
+        <td><%= product.seller.name %></td>
+        <td><%= product.created_at %></td>
+        <td><%= product.amount %></td>
+        <td><a href="#">Remove</a></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<div>
+  <p>Sales:</p>
+  <table class="table">
+    <thead class="table-primary">
+      <th scope="col">Product</th>
+      <th scope="col">Date bought</th>
+      <th scope="col">Buyer</th>
+      <th scope="col">Amount</th>
+    </thead>
+    <tbody>
+      <% @sold.each do |product| %>
+      <tr scope="row">
+        <td><%= product.item %></td>
+        <td><%= product.updated_at %></td>
+        <td><%= product.buyer.name %></td>
+        <td><%= product.amount %></td>
+
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <p>Total <%= @sold_total %></p>
+</div>
+<div>
+  <p>Purchases:</p>
+  <table class="table">
+    <thead class="table-primary">
+      <th scope="col">Product</th>
+      <th scope="col">Date bought</th>
+      <th scope="col">Buyer</th>
+      <th scope="col">Amount</th>
+    </thead>
+    <tbody>
+      <% @purchases.each do |product| %>
+      <tr scope="row">
+        <td><%= product.item %></td>
+        <td><%= product.updated_at %></td>
+        <td><%= product.buyer.name %></td>
+        <td><%= product.amount %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <p>Total <%= @purchases_total %></p>
+</div>
+<% end %>
