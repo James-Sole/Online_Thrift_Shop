@@ -1,13 +1,18 @@
 <% content_for  :left_column do %>
-<div class="">
-  <a href="<%= logout_path %>" data-method="delete">Logout</a>
-  <a href="/users/<%= session[:user_id] %>/edit">Edit My info</a>
-  <a href="/products">All Products</a>
-</div>
-<h1>Hello <%= @user.name %> Welcome To You online Thrift Shop</h1>
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container text-center" >
+    <h1 class="text-white">Hello <%= @user.name %> </h1>
+  </div>
+  <div class="container">
+    <a class="btn btn-outline-light" href="<%= logout_path %>" data-method="delete">Logout</a>
+    <a class="btn btn-outline-light" href="/users/<%= session[:user_id] %>/edit">Edit My info</a>
+    <a class="btn btn-outline-light" href="/products">All Products</a>
+  </div>
+</nav>
+Welcome To Your online Thrift Shop
 <div>
-  <p>Sell Product</p>
-<form action="#" method="post">
+  <p>Sell A Product:</p>
+<form action="product" method="post">
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
   <div class="form-group">
     <label>Item: </label>
@@ -25,6 +30,7 @@
   <table class="table">
     <thead class="table-primary">
       <th scope="col">Product</th>
+      <th scope="col">seller</th>
       <th scope="col">Date posted</th>
       <th scope="col">Amount</th>
       <th scope="col">Action</th>
@@ -35,8 +41,8 @@
         <td><%= product.item %></td>
         <td><%= product.seller.name %></td>
         <td><%= product.created_at %></td>
-        <td><%= product.amount %></td>
-        <td><a href="#">Remove</a></td>
+        <td>$<%= product.amount %></td>
+        <td><a class="btn btn-outline-danger"href="#">Remove</a></td>
       </tr>
       <% end %>
     </tbody>
@@ -47,6 +53,7 @@
   <table class="table">
     <thead class="table-primary">
       <th scope="col">Product</th>
+      <th scope="col">seller</th>
       <th scope="col">Date bought</th>
       <th scope="col">Buyer</th>
       <th scope="col">Amount</th>
@@ -55,21 +62,23 @@
       <% @sold.each do |product| %>
       <tr scope="row">
         <td><%= product.item %></td>
+        <td><%= product.seller.name %></td>
         <td><%= product.updated_at %></td>
         <td><%= product.buyer.name %></td>
-        <td><%= product.amount %></td>
+        <td>$<%= product.amount %></td>
 
       </tr>
       <% end %>
     </tbody>
   </table>
-  <p>Total <%= @sold_total %></p>
+  <p>Total $<%= @sold_total %></p>
 </div>
 <div>
   <p>Purchases:</p>
   <table class="table">
     <thead class="table-primary">
       <th scope="col">Product</th>
+      <th scope="col">seller</th>
       <th scope="col">Date bought</th>
       <th scope="col">Buyer</th>
       <th scope="col">Amount</th>
@@ -78,13 +87,14 @@
       <% @purchases.each do |product| %>
       <tr scope="row">
         <td><%= product.item %></td>
+        <td><%= product.seller.name %></td>
         <td><%= product.updated_at %></td>
         <td><%= product.buyer.name %></td>
-        <td><%= product.amount %></td>
+        <td>$<%= product.amount %></td>
       </tr>
       <% end %>
     </tbody>
   </table>
-  <p>Total <%= @purchases_total %></p>
+  <p>Total $<%= @purchases_total %></p>
 </div>
 <% end %>

@@ -1,10 +1,14 @@
 <% content_for  :left_column do %>
-<div class="">
-  <a href="<%= logout_path %>" data-method="delete">Logout</a>
-  <a href="/users/<%= session[:user_id] %>/edit">Edit My info</a>
-  <a href="/users/<%= session[:user_id] %>">My Dashboard</a>
-</div>
-<h1>All Products</h1>
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container text-center" >
+    <h1 class="text-white">All Products</h1>
+  </div>
+  <div class="container">
+    <a class="btn btn-outline-light" href="<%= logout_path %>" data-method="delete">Logout</a>
+    <a class="btn btn-outline-light" href="/users/<%= session[:user_id] %>/edit">Edit My info</a>
+    <a class="btn btn-outline-light" href="/users/<%= session[:user_id] %>">My Dashboard</a>
+  </div>
+</nav>
 <div>
   <table class="table">
     <thead class="table-primary">
@@ -20,8 +24,8 @@
         <td><%= product.item %></td>
         <td><%= product.seller.name %></td>
         <td><%= product.created_at %></td>
-        <td><%= product.amount %></td>
-        <td><a href="/product/<%= product.id %>" data-method="patch"=>Buy</a></td>
+        <td>$<%= product.amount %></td>
+        <td><a class="btn btn-outline-success"href="/product/<%= product.id %>" data-method="patch"=>Buy</a></td>
       </tr>
       <% end %>
     </tbody>

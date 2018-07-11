@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   get 'products' => 'products#index'
 
-  post 'product/:id' => 'products#create'
+  post 'product' => 'products#create'
 
   patch 'product/:id' => 'products#update'
 
